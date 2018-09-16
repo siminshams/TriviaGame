@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     var question = [{
         q: "Who invented Penicillin?",
-        options: ["Alexandra Fleming", "Marie Curie", "George Orwell", "Thomas Edison"],
+        options: ["Alexander Fleming", "Marie Curie", "George Orwell", "Thomas Edison"],
         answer: 0,
     },
     {
@@ -12,15 +12,15 @@ $(document).ready(function () {
         answer: 2,
     },
     {
+        q: "What is the longest river in the world?",
+        options: ["Nile", "Amazon", "Yangtze", "Mekong"],
+        answer: 0,
+    },
+    {
         q: "Refined sugar increases your risk for which of the following?",
         options: ["Obesity", "Cardiovascular Diseases", "Alzheimers", "All of the Above"],
         answer: 2,
-    },
-    {
-        q: "What is the longest river in the world?",
-        options: ["Tibet and Nepal", "Bhutan and Nepal", "Tibet and India", "India and Nepal"],
-        answer: 0,
-    },
+    },  
     {
         q: "What is the currency of Brazil?",
         options: ["Dollar", "Real", "The Bhat", "Krona"],
@@ -42,22 +42,24 @@ $(document).ready(function () {
         answer: 1,
     },
     {
-        q: "What is the longest river in the world?",
-        options: ["Nile", "Amazon", "Yangtze", "Mekong"],
-        answer: 0,
-    },
+        q: "When light passes from air into glass it experiences change of",
+        options:["frequency and wavelength", "frequency and speed", "wavelength and speed", "frequency, wavelength and speed"],
+        answer: 2,
+    },   
     {
         q: "One mile is how many kilometers?",
         options: ["0.6", "1.2", "1.4", "1.6"],
         answer: 3,
     }];
 
+    var gifArray = ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"];
+
 
     var timeLeft;
     var answered;
     var intervalId;
     var currentQuestionNum;
-    var correctAnswer;
+    var correctAnswerCount;
     var IncorrectAnswer;
     var unanswered;
     var userAnswer;
@@ -80,7 +82,7 @@ $(document).ready(function () {
         $("#incorrectAnswers").empty();
         $("#unanswered").empty();
         currentQuestionNum = 0;
-        correctAnswer = 0;
+        correctAnswerCount = 0;
         IncorrectAnswer = 0;
         unanswered = 0;
         newQuestion();
@@ -90,6 +92,7 @@ $(document).ready(function () {
     function newQuestion() {
         $("#message").empty();
         $("#correctAnswer").empty();
+        $("#image").empty();
         answered = true;
 
 
@@ -135,9 +138,10 @@ $(document).ready(function () {
         
         var correctAnswer = question[currentQuestionNum].options[question[currentQuestionNum].answer];
         var correctAnswerIndex = question[currentQuestionNum].answer;
-        // console.log(correctAnswerIndex);
+        $("#image").html('<img src = "assets/images/'+ gifArray[currentQuestionNum] +'.gif" width = "400px">');
+       
         if ((userAnswer == correctAnswerIndex) && (answered == true)) {
-            correctAnswer++;
+            correctAnswerCount++;            
             $("#message").html("Correct");
         }
         else if ((userAnswer != correctAnswerIndex) && (answered == true)) {
@@ -152,7 +156,7 @@ $(document).ready(function () {
             answered = true;
         }
         if (currentQuestionNum == (question.length - 1)) {
-            setTimeout(score, 3000);
+            setTimeout(score, 2000);
         }
         else {
             currentQuestionNum++;
@@ -165,9 +169,10 @@ $(document).ready(function () {
         $("#timerDisplay").empty();
         $("#message").empty();
         $("#correctAnswer").empty();
+        $("#image").empty();
 
         $("#finalMessage").html("All done, heres how you did!");
-        $("#correctAnswers").html("Correct Answers: " + correctAnswer);
+        $("#correctAnswers").html("Correct Answers: " + correctAnswerCount);
         $("#incorrectAnswers").html("Incorrect Answers: " + IncorrectAnswer);
         $("#unanswered").html("Unanswered: " + unanswered);
         $("#startOver").show();

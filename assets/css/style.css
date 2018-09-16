@@ -67,6 +67,12 @@ hr{
 #options{
     line-height: 1.7;
 }
+#options :hover {
+background-color: aqua;
+color: black;
+cursor: pointer;
+
+}
 
 @media screen and (max-width:640px){
 	.container{
