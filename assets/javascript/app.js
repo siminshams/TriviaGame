@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
- 
+
     var question = [{
         q: "Who invented Penicillin?",
         options: ["Alexandra Fleming", "Marie Curie", "George Orwell", "Thomas Edison"],
@@ -50,17 +50,16 @@ $(document).ready(function () {
         q: "One mile is how many kilometers?",
         options: ["0.6", "1.2", "1.4", "1.6"],
         answer: 3,
-    },
-    ];
+    }];
 
 
-    var timeLeft = 15;
-    var answered = true;
+    var timeLeft;
+    var answered;
     var intervalId;
-    var currentQuestionNum = 0;
-    var correctAnswer = 0;
-    var IncorrectAnswer = 0;
-    var unanswered = 0;
+    var currentQuestionNum;
+    var correctAnswer;
+    var IncorrectAnswer;
+    var unanswered;
     var userAnswer;
 
     //When click on the start button it hide
@@ -77,23 +76,45 @@ $(document).ready(function () {
 
     function startGame() {
         $("#finalMessage").empty();
-        $("#CorrectAnswers").empty();
-        $("#IncorrectAnswers").empty();
+        $("#correctAnswers").empty();
+        $("#incorrectAnswers").empty();
         $("#unanswered").empty();
-
-        currentQuestionNum;
-        correctAnswer;
-        IncorrectAnswer;
-        unanswered;
+        currentQuestionNum = 0;
+        correctAnswer = 0;
+        IncorrectAnswer = 0;
+        unanswered = 0;
         newQuestion();
     }
 
+    //Display a new question
+    function newQuestion() {
+        $("#message").empty();
+        $("#correctAnswer").empty();
+        answered = true;
 
+
+        $("#questionNum").html("Question: " + (currentQuestionNum + 1) + " out of " + (question.length));
+        $("#question").html("<h2>" + question[currentQuestionNum].q + "</h2><br>");
+        for (var i = 0; i < 4; i++) {
+            var option1 = $("<div>");
+            option1.text(question[currentQuestionNum].options[i]);
+            option1.attr( {"data-index":i });
+            option1.addClass("choice");
+            $("#options").append(option1);
+        }
+        timer();
+        $(".choice").on("click",function () {
+            userAnswer = $(this).data("index");
+            // console.log(userAnswer);
+            clearInterval(intervalId);
+            answerPage();
+        });
+    }
     // Coundown Function 
     function timer() {
         timeLeft = 15;
         $("#timerDisplay").html("<h3>Time Remaining: " + timeLeft + "</h3>");
-        answered;
+        answered = true;
         intervalId = setInterval(count, 1000);
     }
     //Function that will be executd every second
@@ -107,50 +128,27 @@ $(document).ready(function () {
         }
     }
 
-    //Display a new question
-    function newQuestion() {
-        $("#message").empty();
-        $("correctAnswer").empty();
-        answered = true;
-
-
-        $("#questionNum").html("Question: " + (currentQuestionNum + 1) + " out of " + (question.length));
-        $("#question").html("<h2>" + question[currentQuestionNum].q + "</h2><br>");
-        for (var i = 0; i < 4; i++) {
-            var option1 = $("<div>");
-            option1.html(question[currentQuestionNum].options[i]);
-            option1.attr({ "option-index": i });
-            option1.addClass("choice");
-            $("#options").append(option1);
-        }
-        timer();
-        $(".choice").click(function () {
-            userAnswer = $(this).data("index");
-            clearInterval(intervalId);
-            answered = false;
-            answerPage();
-        })
-    }
-
     function answerPage() {
         $(".choice").empty();
         $("#questionNum").empty();
         $("#question").empty();
-
+        
         var correctAnswer = question[currentQuestionNum].options[question[currentQuestionNum].answer];
-        var correctanswerIndex = question[currentQuestionNum].answer;
-        if ((userAnswer === correctanswerIndex) && (answered === true)) {
+        var correctAnswerIndex = question[currentQuestionNum].answer;
+        // console.log(correctAnswerIndex);
+        if ((userAnswer == correctAnswerIndex) && (answered == true)) {
             correctAnswer++;
-            $("message").html("Correct");
+            $("#message").html("Correct");
         }
-        else if ((userAnswer !== correctanswerIndex) && (answered === true)) {
+        else if ((userAnswer != correctAnswerIndex) && (answered == true)) {
             IncorrectAnswer++;
-            $("message").html("Wrong");
-            $("correctAnswer").html("The correct answer was: " + correctAnswer);
+            $("#message").html("Wrong");
+            $("#correctAnswer").html("The correct answer was: " + correctAnswer);
         }
         else {
             unanswered++;
-            $("correctAnswer").html("The correct answer was: " + correctAnswer);
+            $("#message").html("Time Up!");
+            $("#correctAnswer").html("The correct answer was: " + correctAnswer);
             answered = true;
         }
         if (currentQuestionNum == (question.length - 1)) {
@@ -164,13 +162,13 @@ $(document).ready(function () {
     }
 
     function score() {
-        $('#timerDisplay').empty();
-        $('#message').empty();
-        $('#correctAnswer').empty();
+        $("#timerDisplay").empty();
+        $("#message").empty();
+        $("#correctAnswer").empty();
 
         $("#finalMessage").html("All done, heres how you did!");
-        $("#CorrectAnswers").html("Correct Answers: " + correctAnswer);
-        $("#IncorrectAnswers").html("Incorrect Answers: " + IncorrectAnswer);
+        $("#correctAnswers").html("Correct Answers: " + correctAnswer);
+        $("#incorrectAnswers").html("Incorrect Answers: " + IncorrectAnswer);
         $("#unanswered").html("Unanswered: " + unanswered);
         $("#startOver").show();
         $("#startOver").html("Start Over");
