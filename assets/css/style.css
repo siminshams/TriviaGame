@@ -15,21 +15,24 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
 }
 * { 
-    margin: 0; padding: 0; 
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
 }
 
 body{
     background-image: url(../images/background.jpg);
-    /* background-size: cover; */
-    color: white;
+    background-size: cover;
+    color: rgb(223, 217, 217);
     font-size: 24px;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
+    line-height: 1.7;
+     
 }
 .container{
     background-color: rgb(10, 10, 85);
@@ -38,45 +41,42 @@ body{
     padding: 10px;
     margin:auto;
 }
-#center{
-    text-align: center;
 
-}
 #button{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+   display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#btn1{   
-  
-    margin-top: 20px;
-    width: 70px;
-    height: 40px;
-    justify-content: center;
+ #btn1 {
+    width: 200px;
+    height: 60px;    
     background-color: rgb(230, 230, 14);
     font-weight: bold;
-    font-size: 20px;
-    align-items: center;
-    display: block;
+    font-size: 24px;  
+    font-family: serif;      
 }
-hr{
-    border-color: aliceblue;
-    height: 1px;
-}
-#options{
-    line-height: 1.7;
-}
+
 #options :hover {
 background-color: aqua;
 color: black;
 cursor: pointer;
+}
+#startOver :hover {
+    background-color: aqua;
+    color: black;
+    cursor: pointer;
+    }
 
+#timerDisplay {
+    padding: 30px;
+}
+#question{
+    padding: 20px;
 }
 
 @media screen and (max-width:640px){
 	.container{
-		width: auto;
-	
+        width: auto;
 	}	
 }

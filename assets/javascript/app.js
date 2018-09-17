@@ -138,7 +138,7 @@ $(document).ready(function () {
         
         var correctAnswer = question[currentQuestionNum].options[question[currentQuestionNum].answer];
         var correctAnswerIndex = question[currentQuestionNum].answer;
-        $("#image").html('<img src = "assets/images/'+ gifArray[currentQuestionNum] +'.gif" width = "400px">');
+        $("#image").html('<img src = "assets/images/'+ gifArray[currentQuestionNum] +'.gif" width = "400px" height = "300px">');
        
         if ((userAnswer == correctAnswerIndex) && (answered == true)) {
             correctAnswerCount++;            
@@ -162,7 +162,6 @@ $(document).ready(function () {
             currentQuestionNum++;
             setTimeout(newQuestion, 3000);
         }
-
     }
 
     function score() {
